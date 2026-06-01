@@ -1,27 +1,14 @@
 package com.java.basic_operations.Exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@AllArgsConstructor
 public class ErrorDetails {
-    private LocalDateTime TimeStamp;
-    private String Message;
-    private String Details;
-
-    public LocalDateTime getTimeStamp() {
-        return TimeStamp;
-    }
-
-    public String getMessage() {
-        return Message;
-    }
-
-    public String getDetails() {
-        return Details;
-    }
-
-    public ErrorDetails(LocalDateTime timeStamp, String message, String details) {
-        TimeStamp = timeStamp;
-        Message = message;
-        Details = details;
-    }
+    private LocalDateTime timeStamp;
+    private String message;
+    private String details;
 }

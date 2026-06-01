@@ -17,13 +17,13 @@ public class UserResource {
         this.service = service;
     }
 
-    @GetMapping(value ="{version}/users", version="1.0.0")
+    @GetMapping("v1/users")
     public List<User> GetAllUsersV1()
     {
         return service.findAll();
     }
 
-    @GetMapping(value ="{version}/users", version="2.0.0")
+    @GetMapping("v2/users")
     public List<User> GetAllUsersV2()
     {
         List<User> users = service.findAll();
