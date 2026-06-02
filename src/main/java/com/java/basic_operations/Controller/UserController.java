@@ -1,7 +1,7 @@
 package com.java.basic_operations.Controller;
 
 import com.java.basic_operations.entity.User;
-import com.java.basic_operations.service.UserDaoService;
+import com.java.basic_operations.service.UserService;
 import com.java.basic_operations.repository.UserNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserDaoService service;
+    private final UserService service;
 
-    public UserController(UserDaoService service) {
+    public UserController(UserService service) {
         this.service = service;
     }
 

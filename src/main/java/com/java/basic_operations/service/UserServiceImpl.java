@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class UserDaoService {
+public class UserServiceImpl implements UserService {
 
     private static List<User> users = new ArrayList<>();
 
@@ -21,21 +21,25 @@ public class UserDaoService {
         users.add(new User(++idCount,"Reddy",LocalDate.now().minusYears(15)));
     }
 
+    @Override
     public List<User> findAll() {
         return users;
     }
 
+    @Override
     public User findById(int id) {
         return users.stream().filter(user -> Objects.equals(user.getId(),id)).
                 findFirst().orElse(null);
     }
 
+    @Override
     public User saveUser(User user){
         user.setId(++idCount);
         users.add(user);
         return user;
     }
 
+    @Override
     public boolean deleteUser(User user) {
         return users.removeIf(u -> u.getId() == user.getId());
     }
