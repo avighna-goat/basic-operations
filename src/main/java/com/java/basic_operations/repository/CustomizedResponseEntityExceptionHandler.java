@@ -1,5 +1,5 @@
-package com.java.basic_operations.Exception;
-import com.java.basic_operations.User.UserNotFoundException;
+package com.java.basic_operations.repository;
+import com.java.basic_operations.entity.ErrorDetails;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

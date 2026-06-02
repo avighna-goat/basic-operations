@@ -1,4 +1,4 @@
-package com.java.basic_operations.Exception;
+package com.java.basic_operations.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

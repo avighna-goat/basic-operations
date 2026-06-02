@@ -1,4 +1,4 @@
-package com.java.basic_operations.User;
+package com.java.basic_operations.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Null;

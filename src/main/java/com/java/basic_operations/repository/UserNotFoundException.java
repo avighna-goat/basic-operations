@@ -1,4 +1,4 @@
-package com.java.basic_operations.User;
+package com.java.basic_operations.repository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

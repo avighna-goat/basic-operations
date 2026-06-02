@@ -1,5 +1,6 @@
-package com.java.basic_operations.User;
+package com.java.basic_operations.service;
 
+import com.java.basic_operations.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
