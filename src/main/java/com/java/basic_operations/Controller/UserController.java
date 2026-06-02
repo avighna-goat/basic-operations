@@ -1,6 +1,8 @@
 package com.java.basic_operations.Controller;
 
+import com.java.basic_operations.Dto.UserDto;
 import com.java.basic_operations.entity.User;
+import com.java.basic_operations.service.UserMapper;
 import com.java.basic_operations.service.UserService;
 import com.java.basic_operations.repository.UserNotFoundException;
 import jakarta.validation.Valid;
@@ -15,9 +17,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
+    private final UserMapper mapper;
 
-    public UserController(UserService service) {
+    public UserController(UserService service, UserMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GetMapping("v1/users")
@@ -27,22 +31,20 @@ public class UserController {
     }
 
     @GetMapping("v2/users")
-    public List<User> GetAllUsersV2()
+    public List<UserDto> GetAllUsersV2()
     {
         List<User> users = service.findAll();
-        List<User> removeBirthdate = users.stream().map(u -> new User(u.getId(),u.getName(),u.getBirthDate())).toList();
-        removeBirthdate.stream().peek(user -> user.setBirthDate(null)).toList();
-        return removeBirthdate;
+        return mapper.toDtos(users);
     }
 
     @GetMapping("/users/{id}")
-    public User GetUsersById(@PathVariable int id)
+    public UserDto GetUsersById(@PathVariable int id)
     {
         User userFound = service.findById(id);
         if(userFound == null)
             throw new UserNotFoundException("id:"+id);
 
-        return userFound;
+        return mapper.toDto(userFound);
     }
 
     @PostMapping("/users")
