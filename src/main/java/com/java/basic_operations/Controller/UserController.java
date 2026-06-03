@@ -2,6 +2,7 @@ package com.java.basic_operations.Controller;
 
 import com.java.basic_operations.Dto.UserDto;
 import com.java.basic_operations.entity.User;
+import com.java.basic_operations.repository.UserRepository;
 import com.java.basic_operations.service.UserMapper;
 import com.java.basic_operations.service.UserService;
 import com.java.basic_operations.repository.UserNotFoundException;
@@ -18,16 +19,24 @@ public class UserController {
 
     private final UserService service;
     private final UserMapper mapper;
+    private final UserRepository repository;
 
-    public UserController(UserService service, UserMapper mapper) {
+    public UserController(UserService service, UserMapper mapper, UserRepository repository) {
         this.service = service;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     @GetMapping("v1/users")
     public List<User> GetAllUsersV1()
     {
         return service.findAll();
+    }
+
+    @GetMapping("h2/users")
+    public List<User> GetAllUsersH2()
+    {
+        return repository.findAll();
     }
 
     @GetMapping("v2/users")
@@ -40,8 +49,8 @@ public class UserController {
     @GetMapping("/users/{id}")
     public UserDto GetUsersById(@PathVariable int id)
     {
-        User userFound = service.findById(id);
-        if(userFound == null)
+        User userFound = repository.findById(id).orElse(new User());
+        if(userFound.getId() == null)
             throw new UserNotFoundException("id:"+id);
 
         return mapper.toDto(userFound);
@@ -50,7 +59,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<Object> CreateUser(@Valid @RequestBody User user)
     {
-        User savedUser = service.saveUser(user);
+        User savedUser = repository.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(savedUser.getId()).toUri();
@@ -59,12 +68,8 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public boolean DeleteUsersById(@PathVariable int id)
+    public void DeleteUsersById(@PathVariable int id)
     {
-        User userFound = service.findById(id);
-        if(userFound == null)
-            throw new UserNotFoundException("id you entered does not exist:"+id);
-
-        return service.deleteUser(userFound);
+        repository.deleteById(id);
     }
 }
