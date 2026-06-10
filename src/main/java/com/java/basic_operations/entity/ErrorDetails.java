@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
+//todo use @Builder
 public class ErrorDetails {
     private LocalDateTime timeStamp;
     private String message;

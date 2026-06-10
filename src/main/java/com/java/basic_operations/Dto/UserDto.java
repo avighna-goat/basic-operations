@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+//try to do comlex mapping with different filed names in dto and entity, skipping some fields from entity
 public class UserDto {
     @Size(min = 2, message = "Name should have atleast 2 characters")
     private String name;

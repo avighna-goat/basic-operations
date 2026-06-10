@@ -19,6 +19,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name="user_details")
+// todo create base class for common fileds for entities like: createdDt, updatedDt, version(for optimistic locking)
+//  use specific annotation for injecting proper values
 public class User {
 
     @Id

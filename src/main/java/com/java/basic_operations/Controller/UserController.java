@@ -13,7 +13,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-
+//todo userController has a single responsibility of managing users
+// that's why it should have base path on root level like "/api/v1/user"
+// all methods+ operation should reflect meaning of action
+// f.e. for get just empty path (assuming that you have on root base one)
+// for getting by id /{id}
+// for versioning better separate by package or controller name, but not mix different versions in single controller
+// not use repository from controller, only service
 @RestController
 public class UserController {
 
@@ -21,6 +27,7 @@ public class UserController {
     private final UserMapper mapper;
     private final UserRepository repository;
 
+    //todo try to use Lombok for required fields
     public UserController(UserService service, UserMapper mapper, UserRepository repository) {
         this.service = service;
         this.mapper = mapper;
@@ -57,7 +64,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> CreateUser(@Valid @RequestBody User user)
+    public ResponseEntity<Void> CreateUser(@Valid @RequestBody User user)
     {
         User savedUser = repository.save(user);
 

@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
+//todo it should be Service
+//  create interface for repository operations and separate repository for inMemory implementation and inject it there with qualifier
+// rename ot to UserServiceInMemoryImpl
+// create separate service with Database repository impl
 public class UserServiceImpl implements UserService {
 
     private static List<User> users = new ArrayList<>();

@@ -14,14 +14,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
+        //todo use builder instead constructor and move creation to helper method with 2 args Exception ex, WebRequest request
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
-
+        //todo remove Error details as of it specified in response type
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
@@ -39,6 +41,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         List<String> combinedError= ex.getFieldErrors().stream().map(FieldError::getDefaultMessage).toList();
+        //todo String msg = ex.getFieldErrors().stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(" and "));
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),String.join(" and ",combinedError) , request.getDescription(false));
 
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
