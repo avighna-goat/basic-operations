@@ -1,9 +1,10 @@
-package com.java.basic_operations.service;
+package com.java.basicoperations.service;
 
-import com.java.basic_operations.entity.User;
+import com.java.basicoperations.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,10 +20,10 @@ public class UserServiceImpl implements UserService {
 
     private static int idCount = 0;
 
-    static{
-        users.add(new User(++idCount,"Avi",LocalDate.now().minusYears(20)));
-        users.add(new User(++idCount,"Alla",LocalDate.now().minusYears(30)));
-        users.add(new User(++idCount,"Reddy",LocalDate.now().minusYears(15)));
+    static {
+        users.add(User.builder().id(++idCount).name("Avi").birthDate(LocalDate.now().minusYears(20)).email("avi@example.com").createdDate(LocalDateTime.now()).internalNotes("Internal notes for Avi").build());
+        users.add(User.builder().id(++idCount).name("Alla").birthDate(LocalDate.now().minusYears(30)).email("alla@example.com").createdDate(LocalDateTime.now()).internalNotes("Internal notes for Alla").build());
+        users.add(User.builder().id(++idCount).name("Reddy").birthDate(LocalDate.now().minusYears(15)).email("reddy@example.com").createdDate(LocalDateTime.now()).internalNotes("Internal notes for Reddy").build());
     }
 
     @Override
@@ -32,13 +33,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(int id) {
-        return users.stream().filter(user -> Objects.equals(user.getId(),id)).
+        return users.stream().filter(user -> Objects.equals(user.getId(), id)).
                 findFirst().orElse(null);
     }
 
     @Override
-    public User saveUser(User user){
+    public User saveUser(User user) {
         user.setId(++idCount);
+        user.setCreatedDate(LocalDateTime.now());
         users.add(user);
         return user;
     }

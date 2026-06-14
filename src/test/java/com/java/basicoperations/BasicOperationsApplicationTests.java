@@ -1,4 +1,4 @@
-package com.java.basic_operations;
+package com.java.basicoperations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

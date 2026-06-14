@@ -1,13 +1,12 @@
-package com.java.basic_operations.entity;
+package com.java.basicoperations.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
-//todo use @Builder
+@Builder
 public class ErrorDetails {
     private LocalDateTime timeStamp;
     private String message;

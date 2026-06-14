@@ -1,6 +1,6 @@
-package com.java.basic_operations.service;
+package com.java.basicoperations.service;
 
-import com.java.basic_operations.entity.User;
+import com.java.basicoperations.entity.User;
 
 import java.util.List;
 
